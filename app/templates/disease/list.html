@@ -24,8 +24,6 @@
             <tr>
               <th>Name</th>
               <th>Description</th>
-              <th>Symptoms</th>
-              <th>Treatment</th>
               <th style="width: 150px;">Actions</th>
             </tr>
           </thead>
@@ -34,8 +32,6 @@
             <tr>
               <td>{{ disease.name }}</td>
               <td>{{ disease.description }}</td>
-              <td>{{ disease.symptoms }}</td>
-              <td>{{ disease.treatment }}</td>
               <td>
                 <a href="{{ url_for('disease.edit_disease', id=disease.id) }}" class="btn btn-warning btn-sm">Edit</a>
                 <a href="{{ url_for('disease.delete_disease', id=disease.id) }}" class="btn btn-danger btn-sm">Delete</a>
