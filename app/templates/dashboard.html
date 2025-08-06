@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+{% block content %}
+<section class="content">
+  <div class="container-fluid">
+
+    <div class="jumbotron">
+      <h1 class="display-4">Welcome, {{ current_user.username }}!</h1>
+      <p class="lead">You are logged in as <strong>{{ role }}</strong>.</p>
+      <hr class="my-4">
+      <p>The humAi App is a system, often using computer vision 
+        and machine learning, designed to identify and classify diseases 
+        or pests on rice plant leaves. These systems help farmers detect 
+        issues early, potentially reducing crop losses.</p>
+    </div>
+
+    {% if role == 'Admin' %}
+    <div class="row">
+      <div class="col-lg-4 col-6">
+        <div class="small-box bg-info">
+          <div class="inner">
+            <h3>{{ stats.users }}</h3>
+            <p>Total Users</p>
+          </div>
+          <div class="icon">
+            <i class="fas fa-users"></i>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-4 col-6">
+        <div class="small-box bg-success">
+          <div class="inner">
+            <h3>{{ stats.diseases }}</h3>
+            <p>Total Diseases</p>
+          </div>
+          <div class="icon">
+            <i class="fas fa-virus"></i>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-4 col-6">
+        <div class="small-box bg-warning">
+          <div class="inner">
+            <h3>{{ stats.detections }}</h3>
+            <p>Total Detections</p>
+          </div>
+          <div class="icon">
+            <i class="fas fa-microscope"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+    {% endif %}
+
+  </div>
+</section>
+{% endblock %}

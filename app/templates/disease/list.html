@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+{% block content %}
+<section class="content">
+  <div class="container-fluid">
+
+    {% with messages = get_flashed_messages() %}
+      {% if messages %}
+        <div class="alert alert-info">
+          {% for msg in messages %}
+            <p>{{ msg }}</p>
+          {% endfor %}
+        </div>
+      {% endif %}
+    {% endwith %}
+
+    <div class="card">
+      <div class="card-header">
+        <h3 class="card-title">Disease Information</h3>
+        <a href="{{ url_for('disease.create_disease') }}" class="btn btn-primary float-right">Add New</a>
+      </div>
+      <div class="card-body">
+        <table class="table table-bordered table-hover">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Description</th>
+              <th>Symptoms</th>
+              <th>Treatment</th>
+              <th style="width: 150px;">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for disease in diseases %}
+            <tr>
+              <td>{{ disease.name }}</td>
+              <td>{{ disease.description }}</td>
+              <td>{{ disease.symptoms }}</td>
+              <td>{{ disease.treatment }}</td>
+              <td>
+                <a href="{{ url_for('disease.edit_disease', id=disease.id) }}" class="btn btn-warning btn-sm">Edit</a>
+                <a href="{{ url_for('disease.delete_disease', id=disease.id) }}" class="btn btn-danger btn-sm">Delete</a>
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </div>
+</section>
+{% endblock %}
