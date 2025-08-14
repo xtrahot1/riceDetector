@@ -5,7 +5,7 @@ translations = {
         "users": "Users",
         "pages": "Pages",
         "diseases": "Diseases",
-        "upload": "Upload",
+        "upload": "Trained Images",
         "logout": "Logout",
         "my_drive": "My Drive",
         "new_folder": "New Folder",
@@ -32,7 +32,7 @@ translations = {
         "users": "Mga Gumagamit",
         "pages": "Mga Pahina",
         "diseases": "Mga Sakit",
-        "upload": "Mag-upload",
+        "upload": "Sinanay na mga Larawan",
         "logout": "Mag-logout",
         "my_drive": "Aking Drive",
         "new_folder": "Bagong Folder",
@@ -55,3 +55,4 @@ translations = {
         "create_new_user": "Lumikha ng Bagong Gumagamit"
     }
 }
+
