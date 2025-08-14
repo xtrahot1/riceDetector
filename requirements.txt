@@ -6,4 +6,5 @@ tensorflow==2.12.1
 numpy
 pillow
 gunicorn
+flask_migrate
 Flask-Babel
