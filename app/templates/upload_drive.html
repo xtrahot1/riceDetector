@@ -1,0 +1,87 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="content">
+    <div class="container-fluid">
+
+        <!-- Breadcrumb -->
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{{ url_for('upload.upload_page') }}">{{t["my_drive"]}}</a></li>
+                {% if subfolder %}
+                    {% set path_parts = subfolder.split('/') %}
+                    {% set current_path = '' %}
+                    {% for part in path_parts %}
+                        {% set current_path = (current_path ~ '/' ~ part)|replace('//', '/')|trim('/') %}
+                        <li class="breadcrumb-item">
+                            <a href="{{ url_for('upload.upload_page', subfolder=current_path) }}">{{ part }}</a>
+                        </li>
+                    {% endfor %}
+                {% endif %}
+            </ol>
+        </nav>
+
+        <!-- Create Folder -->
+        <div class="card card-success mb-3">
+            <div class="card-header"><h3 class="card-title">{{t["new_folder"]}}</h3></div>
+            <div class="card-body">
+                <form method="POST">
+                    <div class="input-group">
+                        <input type="text" name="folder_name" class="form-control" placeholder="{{t["enter_folder_name"]}}" required>
+                        <div class="input-group-append">
+                            <button class="btn btn-success" type="submit">{{t["create"]}}</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Upload Files -->
+        <div class="card card-primary mb-3">
+            <div class="card-header"><h3 class="card-title">{{t["upload_files"]}}</h3></div>
+            <div class="card-body">
+                <form method="POST" enctype="multipart/form-data">
+                    <input type="file" name="files[]" id="files" multiple hidden>
+                    <div id="drop_zone" style="border: 2px dashed #007bff; padding: 20px; text-align: center; cursor: pointer;">
+                        {{t["drag_drop"]}}
+                    </div>
+                    <button type="submit" class="btn btn-primary mt-3">{{t["upload"]}}</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- File & Folder Grid with Checkboxes -->
+        <form method="POST" action="{{ url_for('upload.delete_items') }}">
+            <input type="hidden" name="subfolder" value="{{ subfolder }}">
+
+            <div class="mb-3">
+                <button type="submit" class="btn btn-danger" onclick="return confirm('Delete selected items?')">{{t["delete_selected"]}}</button>
+            </div>
+
+            <div class="row">
+                {% for folder in folders %}
+                <div class="col-6 col-sm-4 col-md-3 col-lg-2 mb-4 text-center">
+                    <input type="checkbox" name="selected_items" value="{{ folder }}">
+                    <a href="{{ url_for('upload.upload_page', subfolder=(subfolder ~ '/' ~ folder)|replace('//', '/')|trim('/')) }}" class="d-block">
+                        <i class="fas fa-folder fa-5x text-warning"></i>
+                        <div class="mt-2">{{ folder }}</div>
+                    </a>
+                </div>
+                {% endfor %}
+
+                {% for file in files %}
+                <div class="col-6 col-sm-4 col-md-3 col-lg-2 mb-4 text-center">
+                    <input type="checkbox" name="selected_items" value="{{ file }}">
+                    <a href="{{ url_for('static', filename='uploads/train/' ~ (subfolder ~ '/' ~ file).strip('/')) }}" target="_blank" class="d-block text-center">
+                    <img src="{{ url_for('static', filename='uploads/train/' ~ (subfolder ~ '/' ~ file).strip('/')) }}" 
+                         class="img-fluid rounded shadow-sm" 
+                         style="height: 100px; object-fit: cover;">
+                    <div class="mt-2 text-truncate">{{ file }}</div>
+                </a>
+                </div>
+                {% endfor %}
+            </div>
+        </form>
+    </div>
+</section>
+
+{% endblock %}

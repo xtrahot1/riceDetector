@@ -28,7 +28,7 @@
                 {% if current_user.role == 'Admin' %}
                 <td>{{ log.user.username }}</td>
                 {% endif %}
-                <td><img src="{{ url_for('static', filename=log.image_path) }}" height="60"></td>
+                <td><img src="{{ url_for('static', filename=log.image_path.replace('\\', '/').split('static/')[-1]) }}" height="60"></td>
                 <td><span class="badge badge-success">{{ log.result }}</span></td>
                 <td>{{ '%.2f'|format(log.confidence) }}%</td>
                 <td>{{ log.timestamp.strftime('%Y-%m-%d %H:%M') }}</td>

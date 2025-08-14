@@ -29,6 +29,12 @@
       </a>
     </li>
     <!-- ... other navbar items -->
+     <li class="nav-item">
+              <a href="{{ url_for('lang.set_language', lang_code='en') }}" class="nav-link">EN</a>
+          </li>
+          <li class="nav-item">
+              <a href="{{ url_for('lang.set_language', lang_code='fil') }}" class="nav-link">FIL</a>
+          </li>
   </ul>
     <ul class="navbar-nav ml-auto">
       {% if current_user.is_authenticated %}
@@ -39,6 +45,8 @@
         <div class="dropdown-menu dropdown-menu-right">
           <span class="dropdown-item-text"><i class="fas fa-user-shield"></i> {{ current_user.role }}</span>
           <div class="dropdown-divider"></div>
+
+    
           <a class="dropdown-item" href="{{ url_for('auth.logout') }}">
             <i class="fas fa-sign-out-alt mr-2"></i> Logout
           </a>
@@ -64,21 +72,25 @@
            <li class="nav-item">
             <a href="{{ url_for('dashboard.dashboard') }}" class="nav-link">
               <i class="nav-icon fas fa-tachometer-alt"></i>
-              <p>Dashboard</p>
+              <p>{{t["dashboard"]}}</p>
             </a>
           </li>
 
           <li class="nav-item">
-            <a href="{{ url_for('detect.detect') }}" class="nav-link"><i class="nav-icon fas fa-dna"></i> <p>Detection</p></a>
+            <a href="{{ url_for('detect.detect') }}" class="nav-link"><i class="nav-icon fas fa-dna"></i> <p>{{t["detection"]}}</p></a>
           </li>
           {% if current_user.role in ['Admin', 'Researcher'] %}
           <li class="nav-item">
-            <a href="{{ url_for('disease.list_diseases') }}" class="nav-link"><i class="nav-icon fas fa-notes-medical"></i><p>Diseases</p></a>
+            <a href="{{ url_for('disease.list_diseases') }}" class="nav-link"><i class="nav-icon fas fa-notes-medical"></i><p>{{t["diseases"]}}</p></a>
           </li>
+          <li class="nav-item">
+            <a href="{{ url_for('upload.upload_page') }}" class="nav-link"><i class="nav-icon fas fa-cloud-upload-alt"></i><p>{{t["upload"]}}</p>
+            </a>
+</li>
           {% endif %}
           {% if current_user.role == 'Admin' %}
           <li class="nav-item">
-            <a href="{{ url_for('admin.manage_users') }}" class="nav-link"><i class="nav-icon fas fa-users-cog"></i><p>Users</p></a>
+            <a href="{{ url_for('admin.manage_users') }}" class="nav-link"><i class="nav-icon fas fa-users-cog"></i><p>{{t["users"]}}</p></a>
           </li>
           <!-- <li class="nav-item">
             <a href="{{ url_for('admin.manage_pages') }}" class="nav-link"><i class="nav-icon fas fa-file-alt"></i><p>Pages</p></a>
@@ -86,13 +98,14 @@
           <li class="nav-item">
             <a href="{{ url_for('detect.logs') }}" class="nav-link">
               <i class="nav-icon fas fa-history"></i>
-              <p>Detection Logs</p>
+              <p>{{t["detection_logs"]}}</p>
             </a>
-        </li>
+          </li>
+
         <li class="nav-item">
           <a href="{{ url_for('auth.logout') }}" class="nav-link">
             <i class="nav-icon fas fa-sign-out-alt"></i>
-            <p>Logout</p>
+            <p>{{t["logout"]}}</p>
           </a>
         </li>
           {% endif %}
@@ -123,3 +136,33 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
 <!-- AdminLTE App -->
 <script src="https://cdn.jsdelivr.net/npm/admin-lte@3.2/dist/js/adminlte.min.js"></script>
+
+<script>
+  $('#diseaseCarousel').carousel({
+    interval: 5000
+  });
+</script>
+
+<script>
+    const dropZone = document.getElementById('drop_zone');
+    const fileInput = document.getElementById('files');
+
+    dropZone.addEventListener('click', () => fileInput.click());
+
+    dropZone.addEventListener('dragover', (e) => {
+        e.preventDefault();
+        dropZone.style.backgroundColor = '#e0f0ff';
+    });
+
+    dropZone.addEventListener('dragleave', () => {
+        dropZone.style.backgroundColor = '';
+    });
+
+    dropZone.addEventListener('drop', (e) => {
+        e.preventDefault();
+        dropZone.style.backgroundColor = '';
+        fileInput.files = e.dataTransfer.files;
+    });
+</script>
+
+

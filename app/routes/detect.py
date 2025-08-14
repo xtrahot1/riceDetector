@@ -41,7 +41,8 @@ def detect():
             pred_conf = float(prediction[0][pred_index]) * 100
 
             # Save detection log
-            relative_path = save_path.split('static/')[-1]
+            # relative_path = save_path.split('static/')[-1]
+            relative_path = os.path.relpath(save_path, "static").replace("\\", "/")
             log = DetectionLog(
                 image_path=relative_path,
                 result=pred_label,

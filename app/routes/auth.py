@@ -15,7 +15,9 @@ def load_user(user_id):
 
 @bp.route('/', methods=['GET', 'POST'])
 def home():
-    return redirect(url_for('auth.login'))
+    if not current_user.is_authenticated:
+        return redirect(url_for('auth.login'))
+    return redirect(url_for('dashboard.dashboard'))
 
 @bp.route('/login', methods=['GET', 'POST'])
 def login():
@@ -53,7 +55,7 @@ def register_user():
             flash('Email already registered', 'danger')
             return redirect(url_for('auth.register_user'))
 
-        new_user = User(username=username, email=email, password=password, role='User')  # auto-set role
+        new_user = User(username=username, email=email, password=generate_password_hash(password), role='User')
         # new_user.set_password(password)
 
         db.session.add(new_user)

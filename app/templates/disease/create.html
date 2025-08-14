@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container mt-4">
+    <h2>Add New Disease</h2>
+    <form method="POST" enctype="multipart/form-data">
+        
+        <!-- Disease Name -->
+        <div class="form-group">
+            <label for="name">Disease Name</label>
+            <input type="text" class="form-control" id="name" name="name" placeholder="Enter disease name" required>
+        </div>
+
+        <!-- Description -->
+        <div class="form-group mt-3">
+            <label for="description">Description</label>
+            <textarea class="form-control" id="description" name="description" rows="3" placeholder="Enter disease description" required></textarea>
+        </div>
+
+        <!-- Symptoms -->
+        <div class="form-group mt-3">
+            <label for="symptoms">Symptoms</label>
+            <textarea class="form-control" id="symptoms" name="symptoms" rows="3" placeholder="Enter symptoms"></textarea>
+        </div>
+
+        <!-- Treatment -->
+        <div class="form-group mt-3">
+            <label for="treatment">Treatment</label>
+            <textarea class="form-control" id="treatment" name="treatment" rows="3" placeholder="Enter treatment methods"></textarea>
+        </div>
+
+        <!-- Upload Image -->
+        <div class="form-group mt-3">
+            <label for="image">Disease Image</label>
+            <input type="file" class="form-control-file" id="image" name="image" accept="image/*" required>
+            <small class="form-text text-muted">Please upload an image (png, jpg, jpeg, gif).</small>
+        </div>
+
+        <!-- Submit -->
+        <button type="submit" class="btn btn-primary mt-3">Add Disease</button>
+        <a href="{{ url_for('disease.list_diseases') }}" class="btn btn-secondary mt-3">Cancel</a>
+    </form>
+</div>
+{% endblock %}

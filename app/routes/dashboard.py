@@ -15,5 +15,8 @@ def dashboard():
         'diseases': Disease.query.count(),
         'detections': DetectionLog.query.count()
     } if role == 'Admin' else {}
+    diseases = Disease.query.order_by(Disease.id.desc()).all()
 
-    return render_template('dashboard.html', role=role, stats=stats)
+    return render_template('dashboard.html', role=role, stats=stats, diseases=diseases)
+
+

@@ -22,6 +22,7 @@
         <table class="table table-bordered table-hover">
           <thead>
             <tr>
+              <th>Image</th>
               <th>Name</th>
               <th>Description</th>
               <th style="width: 150px;">Actions</th>
@@ -30,6 +31,14 @@
           <tbody>
             {% for disease in diseases %}
             <tr>
+              <td>
+                {% if disease.image_path %}
+                  <img src="{{ url_for('static', filename=disease.image_path) }}"
+                      alt="{{ disease.name }}" width="80" height="80" style="object-fit: cover;"/>
+                {% else %}
+                  No image
+                {% endif %}
+              </td>
               <td>{{ disease.name }}</td>
               <td>{{ disease.description }}</td>
               <td>

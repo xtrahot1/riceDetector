@@ -26,6 +26,7 @@ class Disease(db.Model):
     description = db.Column(db.Text)
     symptoms = db.Column(db.Text)     # ⬅️ New
     treatment = db.Column(db.Text)    # ⬅️ New
+    image_path = db.Column(db.String(255), nullable=True)
 
 
 class DetectionLog(db.Model):
